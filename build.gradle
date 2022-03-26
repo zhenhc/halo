@@ -75,6 +75,7 @@ ext {
     jsoupVersion = '1.14.3'
     embeddedRedisVersion = '0.6'
     diffUtilsVersion = '4.11'
+    hutoolVersion = '5.7.22'
 }
 
 dependencies {
@@ -103,6 +104,8 @@ dependencies {
     implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml"
     implementation "org.eclipse.jgit:org.eclipse.jgit:$jgitVersion"
     implementation "com.google.code.findbugs:annotations:$annotationsVersion"
+    // https://mvnrepository.com/artifact/cn.hutool/hutool-all
+    implementation "cn.hutool:hutool-all:$hutoolVersion"
 
     implementation "com.vladsch.flexmark:flexmark:$flexmarkVersion"
     implementation "com.vladsch.flexmark:flexmark-ext-attributes:$flexmarkVersion"
