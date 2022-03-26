@@ -76,6 +76,7 @@ ext {
     embeddedRedisVersion = '0.6'
     diffUtilsVersion = '4.11'
     hutoolVersion = '5.7.22'
+    jedisVersion = '4.2.0'
 }
 
 dependencies {
@@ -106,6 +107,8 @@ dependencies {
     implementation "com.google.code.findbugs:annotations:$annotationsVersion"
     // https://mvnrepository.com/artifact/cn.hutool/hutool-all
     implementation "cn.hutool:hutool-all:$hutoolVersion"
+    implementation "redis.clients:jedis:$jedisVersion"
+
 
     implementation "com.vladsch.flexmark:flexmark:$flexmarkVersion"
     implementation "com.vladsch.flexmark:flexmark-ext-attributes:$flexmarkVersion"

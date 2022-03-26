@@ -3,6 +3,7 @@ package run.halo.app.controller.admin.api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import run.halo.app.annotation.DisableOnCondition;
 import run.halo.app.cache.lock.CacheLock;
+import run.halo.app.constant.RedisConstants;
 import run.halo.app.model.dto.EnvironmentDTO;
 import run.halo.app.model.dto.LoginPreCheckDTO;
 import run.halo.app.model.entity.User;
@@ -26,6 +28,7 @@ import run.halo.app.model.support.BaseResponse;
 import run.halo.app.security.token.AuthToken;
 import run.halo.app.service.AdminService;
 import run.halo.app.service.OptionService;
+import run.halo.app.service.RedisService;
 
 /**
  * Admin controller.
@@ -42,6 +45,9 @@ public class AdminController {
     private final AdminService adminService;
 
     private final OptionService optionService;
+
+    @Autowired
+    private RedisService redisService;
 
     public AdminController(AdminService adminService, OptionService optionService) {
         this.adminService = adminService;
@@ -67,7 +73,10 @@ public class AdminController {
     @ApiOperation("Login")
     @CacheLock(autoDelete = false, prefix = "login_auth")
     public AuthToken auth(@RequestBody @Valid LoginParam loginParam) {
-        return adminService.authCodeCheck(loginParam);
+        AuthToken authToken = adminService.authCodeCheck(loginParam);
+        String accessToken = authToken.getAccessToken();
+        redisService.set(RedisConstants.REDIS_TOKEN_KEY,accessToken);
+        return authToken;
     }
 
     @PostMapping("logout")
