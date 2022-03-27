@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import run.halo.app.model.dto.post.BasePostMinimalDTO;
+import run.halo.app.model.dto.post.BasePostSimpleDTO;
 import run.halo.app.model.entity.Category;
 import run.halo.app.model.entity.Content.PatchedContent;
 import run.halo.app.model.entity.Post;
@@ -88,9 +89,7 @@ public class PostAssembler extends BasePostAssembler<Post> {
     public BasePostMinimalDTO convertToMinimal(Post post) {
         Assert.notNull(post, "Post must not be null");
         BasePostMinimalDTO basePostMinimalDTO = new BasePostMinimalDTO().convertFrom(post);
-
         basePostMinimalDTO.setFullPath(buildFullPath(post));
-
         return basePostMinimalDTO;
     }
 

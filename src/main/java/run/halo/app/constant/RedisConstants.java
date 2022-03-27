@@ -9,4 +9,5 @@ public class RedisConstants {
     public static final String IP = "192.168.31.233";
     public static final Integer PORT = 6379;
     public static final String REDIS_TOKEN_KEY = "halo:token";
+
 }
